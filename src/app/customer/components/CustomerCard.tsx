@@ -3,6 +3,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { FormEvent } from "react";
 
 function CustomerCard() {
   const stripe = useStripe();
@@ -11,7 +12,7 @@ function CustomerCard() {
   const handleSubmit = async () => {
     if (!stripe || !elements) return;
     const { paymentMethod } = await stripe.createPaymentMethod({ elements });
-    stripe.confirmSetup({
+    await stripe.confirmSetup({
       elements,
       redirect: "if_required",
     });

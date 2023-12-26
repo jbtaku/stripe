@@ -27,6 +27,7 @@ export const getSetupIntent = async () => {
 
     const setupIntents = await stripe.setupIntents.create({
       customer: customerId,
+      payment_method_types: ['card']
     });
 
     return {
