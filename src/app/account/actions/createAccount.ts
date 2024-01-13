@@ -3,9 +3,9 @@
 import { stripe } from "@/lib/stripe/stripe";
 import { FormFields } from "../types/formSchema";
 
-export const createAccount = async (props: FormFields) => {
+export const createAccount = async (FormData: FormFields) => {
   try {
-    const phone = "+81" + props.phone.slice(1);
+    const phone = "+81" + FormData.phone.slice(1);
     const front = await stripe.files.create({
       file: {
         data: "",//readFileSync("public/images/common/dummy.jpg"),
@@ -36,28 +36,28 @@ export const createAccount = async (props: FormFields) => {
         product_description: "商品の説明です",
       },
       individual: {
-        first_name_kana: props.firstNameKana,
-        last_name_kana: props.lastNameKana,
-        first_name_kanji: props.firstNameKanji,
-        last_name_kanji: props.lastNameKanji,
+        first_name_kana: FormData.firstNameKana,
+        last_name_kana: FormData.lastNameKana,
+        first_name_kanji: FormData.firstNameKanji,
+        last_name_kanji: FormData.lastNameKanji,
         dob: { year: 2000, month: 1, day: 1 },
         address_kana: {
-          line2: props.addrKanaLine2,
-          line1: props.addrKanaLine1,
-          postal_code: props.addrZip,
-          city: props.addrKanaCity,
-          town: props.addrKanaCity,
-          state: props.addrKanaState,
+          line2: FormData.addrKanaLine2,
+          line1: FormData.addrKanaLine1,
+          postal_code: FormData.addrZip,
+          city: FormData.addrKanaCity,
+          town: FormData.addrKanaCity,
+          state: FormData.addrKanaState,
         },
         address_kanji: {
-          line2: props.addrKanjiLine2,
-          line1: props.addrKanjiLine1,
-          postal_code: props.addrZip,
-          city: props.addrKanjiCity,
-          town: props.addrKanjiCity,
-          state: props.addrKanjiState,
+          line2: FormData.addrKanjiLine2,
+          line1: FormData.addrKanjiLine1,
+          postal_code: FormData.addrZip,
+          city: FormData.addrKanjiCity,
+          town: FormData.addrKanjiCity,
+          state: FormData.addrKanjiState,
         },
-        email: props.email,
+        email: FormData.email,
         phone: phone,
         verification: {
           document: {
@@ -70,7 +70,7 @@ export const createAccount = async (props: FormFields) => {
         object: "bank_account",
         account_number: "0001234",
         routing_number: "1100000", //銀行コード+支店コード
-        account_holder_name: props.accountHolderName,
+        account_holder_name: FormData.accountHolderName,
         currency: "jpy",
         country: "JP",
       },

@@ -3,8 +3,6 @@
 import { Children } from "@/types/common";
 import { SessionProvider } from "next-auth/react";
 import {
-  DehydratedState,
-  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";

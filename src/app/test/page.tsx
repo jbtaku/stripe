@@ -9,23 +9,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import DropZoneField from "@/components/custom-ui/DropZoneField";
 
+const formSchema = z.object({
+  test: z.string().min(1, "必須項目です。"),
+  image: z.string().min(1, "必須項目です。"),
+});
+
+export type FormFields = z.infer<typeof formSchema>;
+
 function page() {
-  const formSchema = z.object({
-    test: z.string().min(1, "必須項目です。"),
-    image: z
-      .instanceof(File)
-      .optional()
-      .refine((file) => file, "*必須項目です"),
-  });
-  type FormFields = z.infer<typeof formSchema>
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: { test: "" },
   });
-  const onSubmit = async(data: FormFields) => {
-    await testAction(data)
-    console.log(data)
-  }
+  const onSubmit = async (data: FormFields) => {
+    const testActionWithTestAndImage = testAction.bind(
+      null,
+      data
+    );
+    await testActionWithTestAndImage();
+    console.log(data);
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -35,7 +38,7 @@ function page() {
           render={({ field }) => (
             <FormItem>
               <Input type="text" {...field} />
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />

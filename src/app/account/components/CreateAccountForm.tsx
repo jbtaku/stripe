@@ -26,7 +26,6 @@ import { ClassName } from "@/types/common";
 import { FormFields, formSchema } from "../types/formSchema";
 import { createAccount } from "../actions/createAccount";
 import DropZoneField from "@/components/custom-ui/DropZoneField";
-import { testAction } from "@/app/test/action";
 
 function CreateAccountForm({ className }: ClassName) {
   const form = useForm<FormFields>({
@@ -56,9 +55,9 @@ function CreateAccountForm({ className }: ClassName) {
     },
   });
 
-  const onSubmit = (data: FormFields) => {
-    console.log("s")
-    createAccount(data);
+  const onSubmit = async (data: FormFields) => {
+    const createAccountWithFormData = createAccount.bind(null, data);
+    await createAccountWithFormData();
   };
 
   return (

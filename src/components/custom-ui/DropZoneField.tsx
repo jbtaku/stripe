@@ -34,9 +34,9 @@ function DropZoneField<T extends FieldValues>({
 }: Props<T>) {
   const [image, setImage] = useState<string>();
   const onDrop = (acceptedFiles: File[]) => {
-    const file = acceptedFiles[0] as PathValue<T, Path<T>>;
-    setValue(name, file);
-    const dataUrl = URL.createObjectURL(file);
+    const file = acceptedFiles[0];
+    const dataUrl = URL.createObjectURL(file) as PathValue<T, Path<T>>;
+    setValue(name, dataUrl, { shouldValidate: true });
     setImage(dataUrl);
   };
 

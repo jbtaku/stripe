@@ -1,9 +1,8 @@
 "use server"
 
-import prisma from "@/lib/prisma/prisma"
+import { FormFields } from "./page"
 
-export const testAction = async (a:any) => {
-    const test = await prisma.user.findMany()
-    console.log(test)
-    console.log(a)
+export const testAction = async (FormData: FormFields) => {
+    console.log(FormData.image)
+    console.log(FormData.test)
 }
